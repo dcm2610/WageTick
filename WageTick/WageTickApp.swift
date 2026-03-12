@@ -7,24 +7,23 @@
 
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 @main
 struct WageTickApp: App {
 
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([Shift.self])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    var sharedModelContainer: ModelContainer = .shared
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    RecurringShiftGenerator.extendIfNeeded(
+                        context: sharedModelContainer.mainContext
+                    )
+                }
         }
         .modelContainer(sharedModelContainer)
     }
 }
+

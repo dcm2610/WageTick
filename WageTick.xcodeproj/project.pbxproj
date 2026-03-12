@@ -6,7 +6,32 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		373E904B2F6200ED00BB60C9 /* WageTickWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 373E902B2F6200EC00BB60C9 /* WageTickWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
+		373E90382F6200ED00BB60C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 377EC5122F61CC5000E4DD8E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 373E902A2F6200EC00BB60C9;
+			remoteInfo = "WageTickWatch Watch App";
+		};
+		373E90422F6200ED00BB60C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 377EC5122F61CC5000E4DD8E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 373E902A2F6200EC00BB60C9;
+			remoteInfo = "WageTickWatch Watch App";
+		};
+		373E90492F6200ED00BB60C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 377EC5122F61CC5000E4DD8E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 373E902A2F6200EC00BB60C9;
+			remoteInfo = "WageTickWatch Watch App";
+		};
 		377EC52A2F61CC5100E4DD8E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 377EC5122F61CC5000E4DD8E /* Project object */;
@@ -23,15 +48,62 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		373E904F2F6200ED00BB60C9 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				373E904B2F6200ED00BB60C9 /* WageTickWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		373E902B2F6200EC00BB60C9 /* WageTickWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WageTickWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		373E90372F6200ED00BB60C9 /* WageTickWatch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WageTickWatch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		373E90412F6200ED00BB60C9 /* WageTickWatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WageTickWatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		377EC51A2F61CC5000E4DD8E /* WageTick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WageTick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		377EC5292F61CC5100E4DD8E /* WageTickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WageTickTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		377EC5332F61CC5100E4DD8E /* WageTickUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WageTickUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		373E905F2F6201F900BB60C9 /* Exceptions for "WageTick" folder in "WageTickWatch Watch App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Shared/RecurringShiftGenerator.swift,
+				Shared/SharedModelContainer.swift,
+				Shared/Shift.swift,
+			);
+			target = 373E902A2F6200EC00BB60C9 /* WageTickWatch Watch App */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		373E902C2F6200EC00BB60C9 /* WageTickWatch Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "WageTickWatch Watch App";
+			sourceTree = "<group>";
+		};
+		373E903A2F6200ED00BB60C9 /* WageTickWatch Watch AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "WageTickWatch Watch AppTests";
+			sourceTree = "<group>";
+		};
+		373E90442F6200ED00BB60C9 /* WageTickWatch Watch AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "WageTickWatch Watch AppUITests";
+			sourceTree = "<group>";
+		};
 		377EC51C2F61CC5000E4DD8E /* WageTick */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				373E905F2F6201F900BB60C9 /* Exceptions for "WageTick" folder in "WageTickWatch Watch App" target */,
+			);
 			path = WageTick;
 			sourceTree = "<group>";
 		};
@@ -48,6 +120,27 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		373E90282F6200EC00BB60C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		373E90342F6200ED00BB60C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		373E903E2F6200ED00BB60C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		377EC5172F61CC5000E4DD8E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -78,6 +171,9 @@
 				377EC51C2F61CC5000E4DD8E /* WageTick */,
 				377EC52C2F61CC5100E4DD8E /* WageTickTests */,
 				377EC5362F61CC5100E4DD8E /* WageTickUITests */,
+				373E902C2F6200EC00BB60C9 /* WageTickWatch Watch App */,
+				373E903A2F6200ED00BB60C9 /* WageTickWatch Watch AppTests */,
+				373E90442F6200ED00BB60C9 /* WageTickWatch Watch AppUITests */,
 				377EC51B2F61CC5000E4DD8E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +184,9 @@
 				377EC51A2F61CC5000E4DD8E /* WageTick.app */,
 				377EC5292F61CC5100E4DD8E /* WageTickTests.xctest */,
 				377EC5332F61CC5100E4DD8E /* WageTickUITests.xctest */,
+				373E902B2F6200EC00BB60C9 /* WageTickWatch Watch App.app */,
+				373E90372F6200ED00BB60C9 /* WageTickWatch Watch AppTests.xctest */,
+				373E90412F6200ED00BB60C9 /* WageTickWatch Watch AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,6 +194,74 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		373E902A2F6200EC00BB60C9 /* WageTickWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 373E904C2F6200ED00BB60C9 /* Build configuration list for PBXNativeTarget "WageTickWatch Watch App" */;
+			buildPhases = (
+				373E90272F6200EC00BB60C9 /* Sources */,
+				373E90282F6200EC00BB60C9 /* Frameworks */,
+				373E90292F6200EC00BB60C9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				373E902C2F6200EC00BB60C9 /* WageTickWatch Watch App */,
+			);
+			name = "WageTickWatch Watch App";
+			packageProductDependencies = (
+			);
+			productName = "WageTickWatch Watch App";
+			productReference = 373E902B2F6200EC00BB60C9 /* WageTickWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		373E90362F6200ED00BB60C9 /* WageTickWatch Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 373E90502F6200ED00BB60C9 /* Build configuration list for PBXNativeTarget "WageTickWatch Watch AppTests" */;
+			buildPhases = (
+				373E90332F6200ED00BB60C9 /* Sources */,
+				373E90342F6200ED00BB60C9 /* Frameworks */,
+				373E90352F6200ED00BB60C9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				373E90392F6200ED00BB60C9 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				373E903A2F6200ED00BB60C9 /* WageTickWatch Watch AppTests */,
+			);
+			name = "WageTickWatch Watch AppTests";
+			packageProductDependencies = (
+			);
+			productName = "WageTickWatch Watch AppTests";
+			productReference = 373E90372F6200ED00BB60C9 /* WageTickWatch Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		373E90402F6200ED00BB60C9 /* WageTickWatch Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 373E90532F6200ED00BB60C9 /* Build configuration list for PBXNativeTarget "WageTickWatch Watch AppUITests" */;
+			buildPhases = (
+				373E903D2F6200ED00BB60C9 /* Sources */,
+				373E903E2F6200ED00BB60C9 /* Frameworks */,
+				373E903F2F6200ED00BB60C9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				373E90432F6200ED00BB60C9 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				373E90442F6200ED00BB60C9 /* WageTickWatch Watch AppUITests */,
+			);
+			name = "WageTickWatch Watch AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "WageTickWatch Watch AppUITests";
+			productReference = 373E90412F6200ED00BB60C9 /* WageTickWatch Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		377EC5192F61CC5000E4DD8E /* WageTick */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 377EC53D2F61CC5100E4DD8E /* Build configuration list for PBXNativeTarget "WageTick" */;
@@ -102,10 +269,12 @@
 				377EC5162F61CC5000E4DD8E /* Sources */,
 				377EC5172F61CC5000E4DD8E /* Frameworks */,
 				377EC5182F61CC5000E4DD8E /* Resources */,
+				373E904F2F6200ED00BB60C9 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				373E904A2F6200ED00BB60C9 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				377EC51C2F61CC5000E4DD8E /* WageTick */,
@@ -173,6 +342,18 @@
 				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
+					373E902A2F6200EC00BB60C9 = {
+						CreatedOnToolsVersion = 26.3;
+						LastSwiftMigration = 2630;
+					};
+					373E90362F6200ED00BB60C9 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = 373E902A2F6200EC00BB60C9;
+					};
+					373E90402F6200ED00BB60C9 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = 373E902A2F6200EC00BB60C9;
+					};
 					377EC5192F61CC5000E4DD8E = {
 						CreatedOnToolsVersion = 26.3;
 					};
@@ -203,11 +384,35 @@
 				377EC5192F61CC5000E4DD8E /* WageTick */,
 				377EC5282F61CC5100E4DD8E /* WageTickTests */,
 				377EC5322F61CC5100E4DD8E /* WageTickUITests */,
+				373E902A2F6200EC00BB60C9 /* WageTickWatch Watch App */,
+				373E90362F6200ED00BB60C9 /* WageTickWatch Watch AppTests */,
+				373E90402F6200ED00BB60C9 /* WageTickWatch Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		373E90292F6200EC00BB60C9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		373E90352F6200ED00BB60C9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		373E903F2F6200ED00BB60C9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		377EC5182F61CC5000E4DD8E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +437,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		373E90272F6200EC00BB60C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		373E90332F6200ED00BB60C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		373E903D2F6200ED00BB60C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		377EC5162F61CC5000E4DD8E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -256,6 +482,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		373E90392F6200ED00BB60C9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 373E902A2F6200EC00BB60C9 /* WageTickWatch Watch App */;
+			targetProxy = 373E90382F6200ED00BB60C9 /* PBXContainerItemProxy */;
+		};
+		373E90432F6200ED00BB60C9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 373E902A2F6200EC00BB60C9 /* WageTickWatch Watch App */;
+			targetProxy = 373E90422F6200ED00BB60C9 /* PBXContainerItemProxy */;
+		};
+		373E904A2F6200ED00BB60C9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 373E902A2F6200EC00BB60C9 /* WageTickWatch Watch App */;
+			targetProxy = 373E90492F6200ED00BB60C9 /* PBXContainerItemProxy */;
+		};
 		377EC52B2F61CC5100E4DD8E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 377EC5192F61CC5000E4DD8E /* WageTick */;
@@ -269,6 +510,172 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		373E904D2F6200ED00BB60C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "WageTickWatch Watch App/WageTickWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8PZFAJX6FT;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WageTickWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = danielmorgan.WageTick;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = danielmorgan.WageTick.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "WageTickWatch Watch App/WageTickWatch Watch App-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		373E904E2F6200ED00BB60C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "WageTickWatch Watch App/WageTickWatch Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8PZFAJX6FT;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WageTickWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = danielmorgan.WageTick;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = danielmorgan.WageTick.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "WageTickWatch Watch App/WageTickWatch Watch App-Bridging-Header.h";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		373E90512F6200ED00BB60C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8PZFAJX6FT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "danielmorgan.WageTickWatch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WageTickWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WageTickWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		373E90522F6200ED00BB60C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8PZFAJX6FT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "danielmorgan.WageTickWatch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WageTickWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WageTickWatch Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		373E90542F6200ED00BB60C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8PZFAJX6FT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "danielmorgan.WageTickWatch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "WageTickWatch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		373E90552F6200ED00BB60C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8PZFAJX6FT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "danielmorgan.WageTickWatch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "WageTickWatch Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
 		377EC53B2F61CC5100E4DD8E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -390,6 +797,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WageTick/WageTick.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8PZFAJX6FT;
@@ -434,6 +842,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WageTick/WageTick.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8PZFAJX6FT;
@@ -578,6 +987,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		373E904C2F6200ED00BB60C9 /* Build configuration list for PBXNativeTarget "WageTickWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				373E904D2F6200ED00BB60C9 /* Debug */,
+				373E904E2F6200ED00BB60C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		373E90502F6200ED00BB60C9 /* Build configuration list for PBXNativeTarget "WageTickWatch Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				373E90512F6200ED00BB60C9 /* Debug */,
+				373E90522F6200ED00BB60C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		373E90532F6200ED00BB60C9 /* Build configuration list for PBXNativeTarget "WageTickWatch Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				373E90542F6200ED00BB60C9 /* Debug */,
+				373E90552F6200ED00BB60C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		377EC5152F61CC5000E4DD8E /* Build configuration list for PBXProject "WageTick" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
