@@ -30,7 +30,7 @@ final class ShiftTickerViewModel {
     }
 
     func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { [weak self] _ in
+        let t = Timer(timeInterval: 0.016, repeats: true) { [weak self] _ in
             guard let self else { return }
             let now = Date()
             self.currentEarnings = self.shift.earnedSoFar(now: now)
@@ -47,6 +47,8 @@ final class ShiftTickerViewModel {
             self.isCompleted = completed
             if self.isCompleted { self.stopTimer() }
         }
+        RunLoop.main.add(t, forMode: .common)
+        timer = t
     }
 
     func stopTimer() {
@@ -80,21 +82,8 @@ struct ShiftTickerView: View {
         ScrollView {
             GlassEffectContainer(spacing: 16) {
                 VStack(spacing: 16) {
-                    // Rate info
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Hourly Rate").font(.caption).foregroundStyle(.secondary)
-                            Text("£\(String(describing: shift.hourlyWage))").font(.title2).fontWeight(.semibold)
-                        }
-                        Spacer()
-                        VStack(alignment: .trailing, spacing: 4) {
-                            Text("Per Second").font(.caption).foregroundStyle(.secondary)
-                            let ps = shift.hourlyWage / Decimal(3600)
-                            Text("£\(String(format: "%.6f", NSDecimalNumber(decimal: ps).doubleValue))").font(.caption)
-                        }
-                    }
-                    .padding()
-                    .glassEffect(in: .rect(cornerRadius: 16))
+                    // Rate info — single rate or per-segment breakdown
+                    rateCard(for: viewModel)
 
                     // Earnings ticker
                     VStack(spacing: 12) {
@@ -166,6 +155,65 @@ struct ShiftTickerView: View {
         .sheet(isPresented: $showEditForm) {
             ShiftFormView(shift: shift)
         }
+    }
+
+    @ViewBuilder
+    private func rateCard(for viewModel: ShiftTickerViewModel) -> some View {
+        let sorted = shift.sortedSegments
+        if sorted.isEmpty {
+            // Single-rate card
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Hourly Rate").font(.caption).foregroundStyle(.secondary)
+                    Text("£\(String(describing: shift.hourlyWage))").font(.title2).fontWeight(.semibold)
+                }
+                Spacer()
+                VStack(alignment: .trailing, spacing: 4) {
+                    Text("Per Second").font(.caption).foregroundStyle(.secondary)
+                    let ps = shift.hourlyWage / Decimal(3600)
+                    Text("£\(String(format: "%.6f", NSDecimalNumber(decimal: ps).doubleValue))").font(.caption)
+                }
+            }
+            .padding()
+            .glassEffect(in: .rect(cornerRadius: 16))
+        } else {
+            // Per-segment breakdown
+            let activeIdx = activeSegmentIndex(elapsed: viewModel.elapsedSeconds, segments: sorted)
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Department Split").font(.caption).foregroundStyle(.secondary)
+                ForEach(Array(sorted.enumerated()), id: \.offset) { idx, seg in
+                    let rate = seg.effectiveRate(fallbackWage: shift.hourlyWage)
+                    let name = seg.department?.name ?? "Base rate"
+                    let isActive = idx == activeIdx && !viewModel.isCompleted
+                    let hrs = seg.durationMinutes / 60
+                    let mins = seg.durationMinutes % 60
+                    let timeStr = hrs > 0 ? (mins > 0 ? "\(hrs)h \(mins)m" : "\(hrs)h") : "\(mins)m"
+                    HStack {
+                        if isActive {
+                            Circle().fill(.green).frame(width: 7, height: 7)
+                        }
+                        Text(name).fontWeight(isActive ? .semibold : .regular)
+                        Spacer()
+                        Text(timeStr).font(.caption).foregroundStyle(.secondary)
+                        Text("£\(String(format: "%.2f", NSDecimalNumber(decimal: rate).doubleValue))/hr")
+                            .font(.caption)
+                            .foregroundStyle(isActive ? .green : .secondary)
+                    }
+                }
+            }
+            .padding()
+            .glassEffect(in: .rect(cornerRadius: 16))
+        }
+    }
+
+    /// Returns the index of the segment currently being worked in based on elapsed time.
+    private func activeSegmentIndex(elapsed: TimeInterval, segments: [ShiftSegment]) -> Int {
+        var remaining = elapsed
+        for (idx, seg) in segments.enumerated() {
+            remaining -= seg.durationSeconds
+            if remaining <= 0 { return idx }
+        }
+        return segments.count - 1
     }
 
     private func formatElapsed(_ seconds: TimeInterval) -> String {

@@ -22,10 +22,20 @@ enum RecurringShiftGenerator {
     /// notifications for any future occurrences.
     static func generate(from template: Shift, into context: ModelContext) {
         let seriesID = UUID()
+        // Start occurrences from 1 week after the template so the template itself
+        // isn't duplicated — the caller inserts the template as occurrence 0.
+        guard let firstStart = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: template.startTime),
+              let firstEnd   = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: template.endTime)
+        else { return }
+
+        // Tag the template as part of the series too
+        template.recurringSeriesID = seriesID
+        template.recurringSeriesIndex = 0
+
         insert(
             seriesID: seriesID,
-            from: template.startTime,
-            endTime: template.endTime,
+            from: firstStart,
+            endTime: firstEnd,
             wage: template.hourlyWage,
             breakDuration: template.unpaidBreakDuration,
             startingAtIndex: 1,
@@ -134,6 +144,8 @@ enum RecurringShiftGenerator {
                 hourlyWage: shift.hourlyWage
             )
             NotificationManager.scheduleShiftEnd(shiftID: id, shift: shift)
+            // Remind the user to set their department split 2 hours before each recurring shift
+            NotificationManager.scheduleDepartmentReminder(shiftID: id, shiftStart: shift.startTime)
         }
         #endif
     }

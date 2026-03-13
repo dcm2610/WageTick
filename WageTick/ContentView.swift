@@ -16,6 +16,9 @@ struct ContentView: View {
             Tab("Shifts", systemImage: "clock") {
                 ShiftsView()
             }
+            Tab("Stats", systemImage: "chart.bar.fill") {
+                StatsView()
+            }
             Tab("Settings", systemImage: "gearshape") {
                 SettingsView()
             }
@@ -38,25 +41,31 @@ struct ShiftsView: View {
     @State private var showNewShiftForm = false
     @State private var selectedShift: Shift?
     @State private var editMode: EditMode = .inactive
-    @State private var showMoreScheduled = false
+    @State private var showMoreOngoing = false
+    @State private var showMoreUpcoming = false
     @State private var showMoreCompleted = false
 
     private let pageSize = 3
 
     private var now: Date { Date() }
 
-    private var scheduledShifts: [Shift] {
-        let upcoming = shifts.filter { $0.isScheduled || $0.isOngoing }
+    private var ongoingShifts: [Shift] {
+        shifts.filter { $0.isOngoing }
+            .sorted { $0.startTime < $1.startTime }
+    }
+
+    private var upcomingShifts: [Shift] {
+        let upcoming = shifts.filter { $0.isScheduled }
             .sorted { $0.startTime < $1.startTime }
 
         // For recurring series, show only the next occurrence (soonest startTime).
-        // Non-recurring shifts pass through as-is.
         var seenSeriesIDs = Set<UUID>()
         return upcoming.filter { shift in
             guard let seriesID = shift.recurringSeriesID else { return true }
             return seenSeriesIDs.insert(seriesID).inserted
         }
     }
+
     private var completedShifts: [Shift] {
         shifts.filter { $0.isCompleted }
     }
@@ -67,7 +76,8 @@ struct ShiftsView: View {
                 if shifts.isEmpty {
                     Text("No shifts").foregroundColor(.secondary)
                 } else {
-                    shiftSection(title: "Upcoming & Ongoing", shifts: scheduledShifts, showMore: $showMoreScheduled)
+                    shiftSection(title: "Ongoing", shifts: ongoingShifts, showMore: $showMoreOngoing)
+                    shiftSection(title: "Upcoming", shifts: upcomingShifts, showMore: $showMoreUpcoming)
                     shiftSection(title: "Completed", shifts: completedShifts, showMore: $showMoreCompleted)
                 }
             }
@@ -152,6 +162,12 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
+                Section("Departments") {
+                    NavigationLink("Departments") {
+                        DepartmentsView()
+                    }
+                }
+
                 Section("Appearance") {
                     Picker("Theme", selection: $appTheme) {
                         Text("System Default").tag("system")
@@ -226,6 +242,19 @@ struct NewShiftFormView: View {
     @State private var endTime = Date().addingTimeInterval(8 * 3600)
     @State private var unpaidBreakDuration = TimeInterval(0)
     @State private var isRecurring = false
+    @State private var segmentsEnabled = false
+    @State private var draftSegments: [DraftSegment] = []
+    @State private var breakSegmentIndex: Int? = nil
+
+    private var totalShiftMinutes: Int {
+        max(0, Int(endTime.timeIntervalSince(startTime) / 60))
+    }
+
+    private var segmentsValid: Bool {
+        guard segmentsEnabled && !draftSegments.isEmpty else { return true }
+        let allocated = draftSegments.reduce(0) { $0 + $1.durationMinutes }
+        return allocated == totalShiftMinutes
+    }
 
     var body: some View {
         NavigationStack {
@@ -238,6 +267,10 @@ struct NewShiftFormView: View {
                     }
                 } header: {
                     Text("Hourly Rate")
+                } footer: {
+                    if segmentsEnabled {
+                        Text("Used as the fallback rate for any segment not assigned to a department.")
+                    }
                 }
 
                 Section("Times") {
@@ -258,6 +291,14 @@ struct NewShiftFormView: View {
                     Text("Unpaid Break")
                 }
 
+                SegmentEditorView(
+                    isEnabled: $segmentsEnabled,
+                    drafts: $draftSegments,
+                    breakSegmentIndex: $breakSegmentIndex,
+                    totalShiftMinutes: totalShiftMinutes,
+                    hasBreak: unpaidBreakDuration > 0
+                )
+
                 Section {
                     Toggle("Repeat weekly", isOn: $isRecurring)
                 } header: {
@@ -276,6 +317,7 @@ struct NewShiftFormView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add", action: createShift)
                         .fontWeight(.semibold)
+                        .disabled(!segmentsValid)
                 }
             }
             #endif
@@ -284,6 +326,21 @@ struct NewShiftFormView: View {
 
     private func createShift() {
         let template = Shift(hourlyWage: hourlyWage, startTime: startTime, endTime: endTime, unpaidBreakDuration: unpaidBreakDuration)
+
+        // Apply segments if enabled
+        if segmentsEnabled && !draftSegments.isEmpty {
+            template.breakSegmentIndex = breakSegmentIndex
+            for (idx, draft) in draftSegments.enumerated() {
+                let segment = ShiftSegment(durationMinutes: draft.durationMinutes, sortOrder: idx)
+                modelContext.insert(segment)
+                segment.shift = template
+                // Resolve department from persistent ID
+                if let deptID = draft.departmentID {
+                    segment.department = resolveDepartment(id: deptID)
+                }
+            }
+        }
+
         if isRecurring {
             RecurringShiftGenerator.generate(from: template, into: modelContext)
         } else {
@@ -294,6 +351,10 @@ struct NewShiftFormView: View {
         }
         isPresented = false
     }
+
+    private func resolveDepartment(id: PersistentIdentifier) -> Department? {
+        modelContext.model(for: id) as? Department
+    }
 }
 
 struct ShiftRowView: View {
@@ -303,12 +364,41 @@ struct ShiftRowView: View {
         TimelineView(.periodic(from: .now, by: 1.0)) { context in
             let now = context.date
             let earnings = shift.earnedSoFar(now: now)
-            VStack(alignment: .leading, spacing: 2) {
+            let sorted = shift.sortedSegments
+            VStack(alignment: .leading, spacing: 4) {
+                // Top row: rate (or base wage) + earnings
                 HStack {
-                    Text("£\(String(describing: shift.hourlyWage))/hr").font(.headline)
+                    if sorted.isEmpty {
+                        Text("£\(String(describing: shift.hourlyWage))/hr").font(.headline)
+                    } else {
+                        Text("Split shift").font(.headline)
+                    }
                     Spacer()
                     Text("£\(String(format: "%.2f", NSDecimalNumber(decimal: earnings).doubleValue))").foregroundColor(.green)
                 }
+
+                // Pills row — only when segments exist
+                if !sorted.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 6) {
+                            ForEach(sorted) { seg in
+                                let name = seg.department?.name ?? "Base"
+                                let hrs = seg.durationMinutes / 60
+                                let mins = seg.durationMinutes % 60
+                                let timeStr = hrs > 0 ? (mins > 0 ? "\(hrs)h \(mins)m" : "\(hrs)h") : "\(mins)m"
+                                Text("\(name) · \(timeStr)")
+                                    .font(.caption)
+                                    .fontWeight(.medium)
+                                    .foregroundStyle(.tint)
+                                    .padding(.horizontal, 10)
+                                    .frame(height: 22)
+                                    .background(.tint.opacity(0.15), in: .capsule)
+                            }
+                        }
+                    }
+                }
+
+                // Bottom row: date, recurring badge, status
                 HStack {
                     Text(shift.startTime.formatted(date: .abbreviated, time: .shortened)).font(.caption).foregroundColor(.secondary)
                     if shift.recurringSeriesID != nil {
@@ -323,9 +413,22 @@ struct ShiftRowView: View {
                     let statusLabel = shift.isScheduled ? "Scheduled" : shift.isCompleted ? "Completed" : "Ongoing"
                     Text(statusLabel).font(.caption).foregroundColor(.secondary)
                 }
+
+                // Warning row — only shown when department segments need setting
+                if shift.needsDepartmentSegments {
+                    HStack(spacing: 3) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.caption2)
+                        Text("Set departments")
+                            .font(.caption2)
+                    }
+                    .foregroundStyle(.orange)
+                }
             }
         }
     }
+
+
 }
 
 private struct ShiftRowWithDelete: View {
@@ -389,6 +492,6 @@ private struct ShiftRowWithDelete: View {
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: Shift.self, configurations: config)
+    let container = try! ModelContainer(for: Shift.self, Department.self, ShiftSegment.self, configurations: config)
     return ShiftsView().modelContainer(container)
 }

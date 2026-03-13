@@ -18,9 +18,20 @@ extension ModelContainer {
         }
         let config = ModelConfiguration(url: storeURL)
         do {
-            return try ModelContainer(for: Shift.self, configurations: config)
+            return try ModelContainer(for: Shift.self, Department.self, ShiftSegment.self, configurations: config)
         } catch {
-            fatalError("Could not create shared ModelContainer: \(error)")
+            // Schema changed — delete the old store and start fresh.
+            print("⚠️ [SharedModelContainer] Schema mismatch, resetting store: \(error)")
+            let shmURL = storeURL.deletingPathExtension().appendingPathExtension("sqlite-shm")
+            let walURL = storeURL.deletingPathExtension().appendingPathExtension("sqlite-wal")
+            for url in [storeURL, shmURL, walURL] {
+                try? FileManager.default.removeItem(at: url)
+            }
+            do {
+                return try ModelContainer(for: Shift.self, Department.self, ShiftSegment.self, configurations: config)
+            } catch {
+                fatalError("Could not create shared ModelContainer after reset: \(error)")
+            }
         }
     }()
 }

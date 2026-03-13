@@ -99,6 +99,41 @@ enum NotificationManager {
         )
     }
 
+    // MARK: - Department reminder
+
+    /// Schedules a reminder 2 hours before a recurring shift's start to prompt the user
+    /// to set their department split for that shift.
+    static func scheduleDepartmentReminder(shiftID: PersistentIdentifier, shiftStart: Date) {
+        guard isEnabled else { return }
+        let reminderTime = shiftStart.addingTimeInterval(-2 * 3600)
+        guard reminderTime > Date() else { return }
+
+        let content = UNMutableNotificationContent()
+        content.title = "Upcoming shift"
+        content.body = "Don't forget to set your department split for today's shift."
+        content.sound = .default
+
+        let trigger = UNCalendarNotificationTrigger(
+            dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: reminderTime),
+            repeats: false
+        )
+
+        let request = UNNotificationRequest(
+            identifier: departmentReminderID(for: shiftID),
+            content: content,
+            trigger: trigger
+        )
+
+        UNUserNotificationCenter.current().add(request)
+    }
+
+    /// Cancels any pending department reminder for the given shift.
+    static func cancelDepartmentReminder(shiftID: PersistentIdentifier) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(
+            withIdentifiers: [departmentReminderID(for: shiftID)]
+        )
+    }
+
     /// Fires an immediate notification summarising a manually-ended shift's earnings.
     /// Also cancels any scheduled end notification to avoid a duplicate later.
     /// No-ops if notifications are disabled.
@@ -132,15 +167,19 @@ enum NotificationManager {
         "shift-end-\(shiftID)"
     }
 
+    private static func departmentReminderID(for shiftID: PersistentIdentifier) -> String {
+        "shift-dept-reminder-\(shiftID)"
+    }
+
     private static let goodLuckMessages: [String] = [
-        "Time to make that money. You've got this!",
-        "Clocked in. Try not to look at the clock too much.",
-        "Your shift has started. Coffee mandatory.",
-        "Here we go! Remember: you're basically printing money.",
-        "Shift started. The weekend is getting closer with every second.",
-        "You turned up. Honestly, that's half the battle.",
-        "Let's get this bread. Literally.",
-        "Another shift, another £. You've got this.",
+        "Your shift has started.",
+        "Clocked in.",
+        "Shift started. Good luck.",
+        "You're on the clock.",
+        "Shift underway.",
+        "Time to get to work.",
+        "Your shift is now live.",
+        "Clocked in and counting.",
     ]
 
     private static func goodLuckMessage(hourlyWage: Decimal) -> String {

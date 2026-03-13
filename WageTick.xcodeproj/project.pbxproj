@@ -75,9 +75,11 @@
 		373E905F2F6201F900BB60C9 /* Exceptions for "WageTick" folder in "WageTickWatch Watch App" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Shared/Department.swift,
 				Shared/RecurringShiftGenerator.swift,
 				Shared/SharedModelContainer.swift,
 				Shared/Shift.swift,
+				Shared/ShiftSegment.swift,
 			);
 			target = 373E902A2F6200EC00BB60C9 /* WageTickWatch Watch App */;
 		};
