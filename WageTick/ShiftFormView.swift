@@ -29,20 +29,6 @@ struct ShiftFormView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section {
-                    HStack(spacing: 4) {
-                        Text("£").foregroundStyle(.secondary)
-                        TextField("0.00", value: $shift.hourlyWage, format: .number)
-                            .keyboardType(.decimalPad)
-                    }
-                } header: {
-                    Text("Hourly Rate")
-                } footer: {
-                    if segmentsEnabled {
-                        Text("Used as the fallback rate for segments not assigned to a department.")
-                    }
-                }
-
                 Section("Times") {
                     DatePicker("Start", selection: $shift.startTime, displayedComponents: [.date, .hourAndMinute])
                         .onChange(of: shift.startTime) { _, newStart in
@@ -80,7 +66,20 @@ struct ShiftFormView: View {
                     totalShiftMinutes: totalShiftMinutes,
                     hasBreak: shift.unpaidBreakDuration > 0
                 )
+
+                if !segmentsEnabled {
+                    Section {
+                        HStack(spacing: 4) {
+                            Text("£").foregroundStyle(.secondary)
+                            TextField("0.00", value: $shift.hourlyWage, format: .number)
+                                .keyboardType(.decimalPad)
+                        }
+                    } header: {
+                        Text("Hourly Rate")
+                    }
+                }
             }
+            .animation(.easeInOut(duration: 0.25), value: segmentsEnabled)
             .navigationTitle("Edit Shift")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)

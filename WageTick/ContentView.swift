@@ -156,6 +156,7 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var shifts: [Shift]
     @AppStorage("appTheme") private var appTheme: String = "system"
+    @AppStorage("weekStartDay") private var weekStartDay: Int = 2 // 1=Sun, 2=Mon
     @AppStorage(NotificationManager.enabledKey) private var notificationsEnabled: Bool = false
     @State private var showResetConfirmation = false
 
@@ -175,6 +176,10 @@ struct SettingsView: View {
                         Text("Dark").tag("dark")
                     }
                     .pickerStyle(.segmented)
+                    Picker("Week Starts On", selection: $weekStartDay) {
+                        Text("Monday").tag(2)
+                        Text("Sunday").tag(1)
+                    }
                 }
 
                 Section {
@@ -259,20 +264,6 @@ struct NewShiftFormView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section {
-                    HStack(spacing: 4) {
-                        Text("£").foregroundStyle(.secondary)
-                        TextField("0.00", value: $hourlyWage, format: .number)
-                            .keyboardType(.decimalPad)
-                    }
-                } header: {
-                    Text("Hourly Rate")
-                } footer: {
-                    if segmentsEnabled {
-                        Text("Used as the fallback rate for any segment not assigned to a department.")
-                    }
-                }
-
                 Section("Times") {
                     DatePicker("Start", selection: $startTime, displayedComponents: [.date, .hourAndMinute])
                     DatePicker("End", selection: $endTime, displayedComponents: [.date, .hourAndMinute])
@@ -291,14 +282,6 @@ struct NewShiftFormView: View {
                     Text("Unpaid Break")
                 }
 
-                SegmentEditorView(
-                    isEnabled: $segmentsEnabled,
-                    drafts: $draftSegments,
-                    breakSegmentIndex: $breakSegmentIndex,
-                    totalShiftMinutes: totalShiftMinutes,
-                    hasBreak: unpaidBreakDuration > 0
-                )
-
                 Section {
                     Toggle("Repeat weekly", isOn: $isRecurring)
                 } header: {
@@ -308,7 +291,28 @@ struct NewShiftFormView: View {
                         Text("Schedules \(RecurringShiftGenerator.occurrenceCount) weekly occurrences. Each can be deleted individually.")
                     }
                 }
+
+                SegmentEditorView(
+                    isEnabled: $segmentsEnabled,
+                    drafts: $draftSegments,
+                    breakSegmentIndex: $breakSegmentIndex,
+                    totalShiftMinutes: totalShiftMinutes,
+                    hasBreak: unpaidBreakDuration > 0
+                )
+
+                if !segmentsEnabled {
+                    Section {
+                        HStack(spacing: 4) {
+                            Text("£").foregroundStyle(.secondary)
+                            TextField("0.00", value: $hourlyWage, format: .number)
+                                .keyboardType(.decimalPad)
+                        }
+                    } header: {
+                        Text("Hourly Rate")
+                    }
+                }
             }
+            .animation(.easeInOut(duration: 0.25), value: segmentsEnabled)
             .navigationTitle("New Shift")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)

@@ -9,8 +9,7 @@ struct ActiveShiftsView: View {
     @Query(sort: \Shift.startTime, order: .reverse) private var allShifts: [Shift]
 
     private var activeShifts: [Shift] {
-        let now = Date()
-        return allShifts.filter { $0.startTime <= now && now < $0.endTime }
+        allShifts.filter { $0.isOngoing }
     }
 
     var body: some View {

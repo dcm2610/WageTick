@@ -15,10 +15,12 @@ struct WageTickApp: App {
     var sharedModelContainer: ModelContainer = .shared
     @AppStorage("hasSeenDepartmentOnboarding") private var hasSeenOnboarding = false
     @State private var showOnboarding = false
+    @State private var storeManager = StoreManager()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(storeManager)
                 .onAppear {
                     RecurringShiftGenerator.extendIfNeeded(
                         context: sharedModelContainer.mainContext

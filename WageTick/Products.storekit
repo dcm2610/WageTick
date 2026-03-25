@@ -1,0 +1,66 @@
+{
+  "identifier" : "com.danielmorgan.WageTick.storekit",
+  "nonConsumableProducts" : [
+    {
+      "displayPrice" : "0.99",
+      "familySharable" : false,
+      "internalID" : "com.danielmorgan.WageTick.unlock",
+      "localizations" : [
+        {
+          "description" : "Unlock detailed stats including averages, best shift, department breakdown, and break deductions. A one-time purchase to support the developer.",
+          "displayName" : "Support the Developer",
+          "locale" : "en_GB"
+        }
+      ],
+      "productID" : "com.danielmorgan.WageTick.unlock",
+      "referenceName" : "Unlock Premium Stats",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_GB",
+    "_storefront" : "GBR",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Unverified Renewals"
+      }
+    ]
+  },
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

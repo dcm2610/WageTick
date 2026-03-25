@@ -91,7 +91,7 @@ struct SegmentEditorView: View {
 
     var body: some View {
         Section {
-            Toggle("Split by department", isOn: $isEnabled)
+            Toggle("Split by department", isOn: $isEnabled.animation(.easeInOut(duration: 0.25)))
         } header: {
             Text("Department Split")
         } footer: {
